@@ -85,7 +85,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
           <div className="space-y-2 mt-2 text-center">
           
             <div className="flex justify-center">
-            <img src={logo} alt="Curiso.ai" title="Curiso.ai" className="w-12 h-12" /></div>
+            <img src={logo} alt="Deep Fake AI" title="Deep Fake AI" className="w-12 h-12" /></div>
             <div className="flex justify-center"><p className="text-sm text-muted-foreground justify-center mb-2">Version v1.2.1 by <a 
               href="https://github.com/metaspartan/curiso" 
               onClick={(e) => {
@@ -94,7 +94,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
               }}
               className="hover:underline"
             >Carsen Klock</a></p></div>
-            <strong>Curiso.ai</strong> is an infinite canvas for your thoughts—a platform that seamlessly connects nodes and AI services so you can explore ideas in depth.
+            <strong>Deep Fake AI</strong> is an infinite canvas for your thoughts—a platform that seamlessly connects nodes and AI services so you can explore ideas in depth.
             </div>
             <div className="space-y-2 mt-2">
               <Label>Primary Theme Color</Label>

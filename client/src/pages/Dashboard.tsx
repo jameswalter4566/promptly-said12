@@ -305,7 +305,7 @@ function Flow({ settingsOpen, setSettingsOpen }: { settingsOpen: boolean; setSet
       <Controls />
       <BoardSelector />
       <Panel position="top-left" className="space-x-2">
-      <img src={logo} alt="Curiso.ai" title="Curiso.ai" className="w-12 h-12 z-100" />
+      <img src={logo} alt="Deep Fake AI" title="Deep Fake AI" className="w-12 h-12 z-100" />
     </Panel>
       <Panel position="top-right" className="space-x-2">
         <Button onClick={addNode} size="icon">
