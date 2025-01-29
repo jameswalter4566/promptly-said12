@@ -47,9 +47,9 @@ Deep Fake AI is an infinite canvas for your thoughts—a platform that seamlessl
 
 ## Solana Token
 
-Curiso ($CUR) is a token on the Solana blockchain that will provide exclusive access to the future Curiso.ai web application. Token holders will be able to unlock premium features and enhanced AI capabilities with $CUR. (Coming Soon)
+Deep Fake AI ($DFA) is a token on the Solana blockchain that will provide exclusive access to the future Curiso.ai web application. Token holders will be able to unlock premium features and enhanced AI capabilities with $CUR. (Coming Soon)
 
-[$CUR on Dexscreener](https://dexscreener.com/solana/8TbsZ3yH1mBHytVpmMn4qED2UeF3FgWUVt1pd5RBpump)
+[$DFA on Dexscreener](https://dexscreener.com/solana/8TbsZ3yH1mBHytVpmMn4qED2UeF3FgWUVt1pd5RBpump)
 
 ## Getting Started
 
@@ -70,13 +70,13 @@ Available for Windows, macOS, and Linux.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/metaspartan/curiso.git
+git clone https://github.com/metaspartan/deepfakeai.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd curiso
+cd deepfakeai
 ```
 
 3. Install dependencies:
