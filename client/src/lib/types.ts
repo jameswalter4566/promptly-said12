@@ -1,6 +1,7 @@
 import { Node as ReactFlowNode, XYPosition } from 'reactflow';
 
 export interface GlobalSettings {
+  version?: number;
   temperature: number;
   top_p: number;
   max_tokens: number;
@@ -16,32 +17,32 @@ export interface GlobalSettings {
     modelStatus: 'loading' | 'error' | 'unloaded' | 'loaded';
     modelProgress?: number;
     modelError?: string;
-    supportedModels: string[]; // Added this
+    supportedModels: string[];
   };
   systemPrompt: string;
   lastSelectedModel: string;
-  openai?: {
+  openai: {
     apiKey: string;
   };
-  xai?: {
+  xai: {
     apiKey: string;
   };
-  perplexity?: {
+  perplexity: {
     apiKey: string;
   };
-  deepseek?: {
+  deepseek: {
     apiKey: string;
   };
-  groq?: {
+  groq: {
     apiKey: string;
   };
-  openrouter?: {
+  openrouter: {
     apiKey: string;
   };
-  anthropic?: {
+  anthropic: {
     apiKey: string;
   };
-  google?: {
+  google: {
     apiKey: string;
   };
   boards: Board[];
