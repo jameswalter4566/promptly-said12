@@ -1,4 +1,4 @@
-name: Install Dependencies
+name: Install and Generate package-lock.json
 
 on: push
 
@@ -12,7 +12,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Updated from 16 to 20
+          node-version: '18'  # Use Node.js 18 or newer
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Commit package-lock.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "Generated package-lock.json"
+          git push origin HEAD
