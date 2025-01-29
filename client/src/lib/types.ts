@@ -1,4 +1,4 @@
-import { Position, XYPosition } from "reactflow";
+import { Node as ReactFlowNode, XYPosition } from 'reactflow';
 
 export interface GlobalSettings {
   temperature: number;
@@ -16,6 +16,7 @@ export interface GlobalSettings {
     modelStatus: 'loading' | 'error' | 'unloaded' | 'loaded';
     modelProgress?: number;
     modelError?: string;
+    supportedModels: string[]; // Added this
   };
   systemPrompt: string;
   lastSelectedModel: string;
@@ -76,7 +77,7 @@ export interface Edge {
   style?: Record<string, any>;
 }
 
-export interface Node<T = any> {
+export interface Node<T = any> extends Omit<ReactFlowNode<T>, 'type'> {
   id: string;
   type: string;
   data: T;
