@@ -1,7 +1,5 @@
-import { Edge } from "reactflow";
-import { Node as ReactFlowNode } from 'reactflow';
-
 export const providers = ['openai', 'deepseek', 'xai', 'groq', 'openrouter', 'anthropic', 'google', 'perplexity','ollama', 'custom'];
+
 export interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
@@ -88,6 +86,7 @@ export interface CustomModel extends AIModel {
 }
 
 export interface GlobalSettings {
+  [key: string]: any; // Add index signature
   hotkeys: HotkeySettings;
   version: number;
   rag: RAGSettings;
@@ -117,12 +116,4 @@ export interface GlobalSettings {
   panOnScroll: boolean;
   zoomOnScroll: boolean;
   fitViewOnInit: boolean;
-}
-
-export interface NodeData {
-  messages: Message[];
-  model: string;
-  provider: (typeof providers)[number];
-  selectedDocuments?: string[]; // Array of document IDs selected for this node
-  selectedWebsites?: string[]; // Array of website IDs selected for this node
 }

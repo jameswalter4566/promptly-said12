@@ -29,7 +29,6 @@ import { DEFAULT_AI_SETTINGS, AISettings, PRESET_ENDPOINTS } from '@/lib/constan
 import { ImageUpload } from "./ImageUpload";
 import logo from "@/assets/logo.svg";
 import { RAGService } from "@/lib/rag";
-// import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "./ui/context-menu";
 import { RAGSelector } from "./RAGSelector";
 import { CodeBlock } from "./CodeBlock";
 import remarkGfm from 'remark-gfm';
@@ -121,24 +120,24 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
     return sortedMessages;
   }, [getEdges, getNode, id]);
 
-  // const deleteNode = useCallback(() => {
-  //   setSettings({
-  //     ...settings,
-  //     boards: settings.boards.map(board => 
-  //       board.id === settings.currentBoardId
-  //         ? {
-  //             ...board,
-  //             nodes: board.nodes.filter(node => !selectedNodes.some(selected => selected.id === node.id)),
-  //             edges: board.edges.filter(edge => 
-  //               !selectedNodes.some(node => node.id === edge.source || node.id === edge.target)
-  //             )
-  //           }
-  //         : board
-  //     )
-  //   });
-  //   // delete this node from the current board
-  //   setNodes(nodes => nodes.filter(n => n.id !== id));
-  // }, [id, settings, setSettings]);
+  const deleteNode = useCallback(() => {
+    setSettings({
+      ...settings,
+      boards: settings.boards.map(board => 
+        board.id === settings.currentBoardId
+          ? {
+              ...board,
+              nodes: board.nodes.filter(node => !selectedNodes.some(selected => selected.id === node.id)),
+              edges: board.edges.filter(edge => 
+                !selectedNodes.some(node => node.id === edge.source || node.id === edge.target)
+              )
+            }
+          : board
+      )
+    });
+    // delete this node from the current board
+    setNodes(nodes => nodes.filter(n => n.id !== id));
+  }, [id, settings, setSettings]);
 
   const { updateMetrics } = useMetricsStore.getState();
   const currentMetrics = useMetricsStore.getState().metrics[model] || {
@@ -1128,14 +1127,14 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
           </SelectContent>
           </Select>
           <div className="flex gap-1">
-          {/* <Button
+          <Button
             variant="ghost"
             size="sm"
             onClick={deleteNode}
             className="h-8"
           >
             <Trash2 className="h-4 w-4" />
-          </Button> */}
+          </Button>
           <Button
             variant="ghost"
             size="sm"
