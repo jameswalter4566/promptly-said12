@@ -1,4 +1,4 @@
-import { Position } from "reactflow";
+import { Position, XYPosition } from "reactflow";
 
 export interface GlobalSettings {
   temperature: number;
@@ -8,8 +8,14 @@ export interface GlobalSettings {
   presence_penalty: number;
   rag: {
     enabled: boolean;
-    documents: { id: string }[];
-    websites: { id: string }[];
+    documents: RAGDocument[];
+    websites: RAGWebsite[];
+    similarityThreshold: number;
+    chunkSize: number;
+    embeddingModel: string;
+    modelStatus: 'loading' | 'error' | 'unloaded' | 'loaded';
+    modelProgress?: number;
+    modelError?: string;
   };
   systemPrompt: string;
   lastSelectedModel: string;
@@ -39,11 +45,27 @@ export interface GlobalSettings {
   };
   boards: Board[];
   currentBoardId: string;
+  customModels: CustomModel[];
+  primaryColor: string;
+  snapToGrid: boolean;
+  doubleClickZoom: boolean;
+  panOnDrag: boolean;
+  panOnScroll: boolean;
+  zoomOnScroll: boolean;
+  fitViewOnInit: boolean;
+  streaming: boolean;
+  hotkeys: {
+    newNode: string;
+    newBoard: string;
+    deleteBoard: string;
+    dNode: string;
+  };
 }
 
 export interface Board {
   id: string;
-  nodes: Node<any>[];
+  name: string;
+  nodes: Node[];
   edges: Edge[];
 }
 
@@ -51,16 +73,72 @@ export interface Edge {
   id: string;
   source: string;
   target: string;
-}
-
-export interface StoreState {
-  settings: GlobalSettings;
-  selectedNodes: Node<any>[];  // Add this line
+  style?: Record<string, any>;
 }
 
 export interface Node<T = any> {
   id: string;
   type: string;
   data: T;
-  position: Position;
+  position: XYPosition;
+  selected?: boolean;
+}
+
+export interface CustomModel {
+  id: string;
+  name: string;
+  provider: 'openai' | 'anthropic' | 'local';
+  description: string;
+  maxTokens: number;
+  thumbnailUrl: string;
+  endpoint: string;
+  requiresAuth: boolean;
+  apiKey?: string;
+}
+
+export interface AIModel {
+  id: string;
+  name: string;
+  provider: string;
+  description: string;
+  maxTokens: number;
+  thumbnailUrl: string;
+}
+
+export interface Message {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  image_url?: string;
+  metrics?: {
+    totalTime?: number;
+    totalTokens?: number;
+    tokensPerSecond?: number;
+  };
+}
+
+export interface APIResponseMetrics {
+  completion_tokens?: number;
+  prompt_tokens?: number;
+  total_tokens?: number;
+  model?: string;
+}
+
+export interface RAGDocument {
+  id: string;
+  filename: string;
+  timestamp: string;
+  size: number;
+  chunks: any[];
+}
+
+export interface RAGWebsite {
+  id: string;
+  url: string;
+  title?: string;
+  dateScraped: string;
+}
+
+export interface StoreState {
+  settings: GlobalSettings;
+  selectedNodes: Node[];
 }
