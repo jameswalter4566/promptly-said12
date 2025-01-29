@@ -4,12 +4,18 @@ import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path, { dirname } from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import { fileURLToPath } from "url";
+import { componentTagger } from "lovable-tagger";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig({
-  plugins: [react(), runtimeErrorOverlay(), themePlugin()],
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    themePlugin(),
+    mode === 'development' && componentTagger(),
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),
@@ -24,9 +30,9 @@ export default defineConfig({
   server: {
     port: 8080,
     strictPort: true,
+    host: "::",
   },
-  // Add build configuration
   define: {
     'process.env': {}
   }
-});
+}));

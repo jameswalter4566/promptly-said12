@@ -69,6 +69,7 @@
     "input-otp": "^1.2.4",
     "js-tiktoken": "^1.0.16",
     "katex": "^0.16.21",
+    "lovable-tagger": "^1.0.19",
     "lucide-react": "^0.453.0",
     "memorystore": "^1.6.7",
     "nanoid": "^5.0.9",
