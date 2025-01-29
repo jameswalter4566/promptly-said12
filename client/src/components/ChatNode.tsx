@@ -122,7 +122,7 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
 
   const deleteNode = useCallback(() => {
     const state = useStore.getState();
-    const selectedNodes = state.selectedNodes || [];
+    const selectedNodes: Node[] = state.selectedNodes || [];
     
     setSettings({
       ...settings,
@@ -130,9 +130,9 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
         board.id === settings.currentBoardId
           ? {
               ...board,
-              nodes: board.nodes.filter(node => !selectedNodes.some(selected => selected.id === node.id)),
+              nodes: board.nodes.filter(node => !selectedNodes.some((selected: Node) => selected.id === node.id)),
               edges: board.edges.filter(edge => 
-                !selectedNodes.some(node => node.id === edge.source || node.id === edge.target)
+                !selectedNodes.some((node: Node) => node.id === edge.source || node.id === edge.target)
               )
             }
           : board

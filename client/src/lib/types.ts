@@ -1,101 +1,66 @@
-import { Node, Edge as FlowEdge } from 'reactflow';
-
-export interface Board {
-  id: string;
-  name: string;
-  nodes: Node[];
-  edges: FlowEdge[];
-  createdAt?: number;
-}
-
-export interface Message {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-  image_url?: string;
-  metrics?: {
-    tokensPerSecond?: number;
-    totalTokens?: number;
-    totalTime?: number;
-  };
-}
-
-export interface AIModel {
-  id: string;
-  name: string;
-  provider: string;
-  description: string;
-  maxTokens: number;
-  thumbnailUrl: string;
-}
-
-export interface CustomModel extends AIModel {
-  endpoint: string;
-  requiresAuth: boolean;
-  apiKey?: string;
-}
-
-export interface APIResponseMetrics {
-  completion_tokens?: number;
-  prompt_tokens?: number;
-  total_tokens?: number;
-  model?: string;
-}
-
-export interface RAGSettings {
-  enabled: boolean;
-  similarityThreshold: number;
-  chunkSize: number;
-  documents: any[];
-  websites: any[];
-  supportedModels: string[];
-  embeddingModel: string;
-  modelStatus: string;
-  modelProgress?: number;
-  modelError?: string;
-}
+import { Position } from "reactflow";
 
 export interface GlobalSettings {
-  version: number;
-  primaryColor: string;
-  boards: Board[];
-  currentBoardId: string;
-  openai: { apiKey: string };
-  deepseek: { apiKey: string };
-  perplexity: { apiKey: string };
-  xai: { apiKey: string };
-  groq: { apiKey: string };
-  openrouter: { apiKey: string };
-  anthropic: { apiKey: string };
-  google: { apiKey: string };
-  customModels: CustomModel[];
   temperature: number;
   top_p: number;
   max_tokens: number;
   frequency_penalty: number;
   presence_penalty: number;
-  systemPrompt: string;
-  snapToGrid: boolean;
-  doubleClickZoom: boolean;
-  panOnDrag: boolean;
-  panOnScroll: boolean;
-  zoomOnScroll: boolean;
-  fitViewOnInit: boolean;
-  lastSelectedModel: string;
-  streaming: boolean;
-  rag: RAGSettings;
-  hotkeys: {
-    newNode: string;
-    newBoard: string;
-    deleteBoard: string;
-    dNode: string;
+  rag: {
+    enabled: boolean;
+    documents: { id: string }[];
+    websites: { id: string }[];
   };
-  [key: string]: any;
+  systemPrompt: string;
+  lastSelectedModel: string;
+  openai?: {
+    apiKey: string;
+  };
+  xai?: {
+    apiKey: string;
+  };
+  perplexity?: {
+    apiKey: string;
+  };
+  deepseek?: {
+    apiKey: string;
+  };
+  groq?: {
+    apiKey: string;
+  };
+  openrouter?: {
+    apiKey: string;
+  };
+  anthropic?: {
+    apiKey: string;
+  };
+  google?: {
+    apiKey: string;
+  };
+  boards: Board[];
+  currentBoardId: string;
+}
+
+export interface Board {
+  id: string;
+  nodes: Node<any>[];
+  edges: Edge[];
+}
+
+export interface Edge {
+  id: string;
+  source: string;
+  target: string;
 }
 
 export interface StoreState {
   settings: GlobalSettings;
-  setSettings: (settings: GlobalSettings) => void;
-  clearAllData: () => Promise<void>;
-  updateCustomModels: (models: CustomModel[]) => void;
-  selectedNodes?: Node[];
+  selectedNodes: Node<any>[];  // Add this line
+}
+
+export interface Node<T = any> {
+  id: string;
+  type: string;
+  data: T;
+  position: Position;
 }
