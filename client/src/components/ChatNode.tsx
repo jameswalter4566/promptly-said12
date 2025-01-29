@@ -121,23 +121,24 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
   }, [getEdges, getNode, id]);
 
   const deleteNode = useCallback(() => {
+    const { selectedNodes } = useStore.getState();  // Get selectedNodes from store
+    
     setSettings({
       ...settings,
       boards: settings.boards.map(board => 
         board.id === settings.currentBoardId
           ? {
               ...board,
-              nodes: board.nodes.filter(node => !selectedNodes.some(selected => selected.id === node.id)),
+              nodes: board.nodes.filter(node => !selectedNodes?.some((selected: Node) => selected.id === node.id)),
               edges: board.edges.filter(edge => 
-                !selectedNodes.some(node => node.id === edge.source || node.id === edge.target)
+                !selectedNodes?.some((node: Node) => node.id === edge.source || node.id === edge.target)
               )
             }
           : board
       )
     });
-    // delete this node from the current board
     setNodes(nodes => nodes.filter(n => n.id !== id));
-  }, [id, settings, setSettings]);
+  }, [id, settings, setSettings, setNodes]);
 
   const { updateMetrics } = useMetricsStore.getState();
   const currentMetrics = useMetricsStore.getState().metrics[model] || {

@@ -24,5 +24,9 @@ export default defineConfig({
   server: {
     port: 8080,
     strictPort: true,
+  },
+  // Add build configuration
+  define: {
+    'process.env': {}
   }
 });

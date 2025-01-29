@@ -1,104 +1,36 @@
-import { CustomModel } from './types'
-import ollamaLogo from '@/assets/ollama-logo.svg'
+import { CustomModel } from "./types";
+import { invoke } from "@tauri-apps/api/tauri";
 
-export const defaultLocalModels: CustomModel[] = []
+export const getLocalModels = async (): Promise<CustomModel[]> => {
+  try {
+    const models = await invoke<any[]>("list_models");
+    
+    return models.map(model => ({
+      id: String(model.id),
+      name: model.name,
+      provider: "local",
+      thumbnailUrl: "",
+      endpoint: "http://localhost:11434/v1",
+      requiresAuth: false,
+      apiKey: "",
+      contextWindow: model.context_window || 8192,
+      maxTokens: model.parameters?.max_tokens || 4096,
+      temperature: model.parameters?.temperature || 0.7,
+      topP: model.parameters?.top_p || 0.9,
+      frequencyPenalty: model.parameters?.frequency_penalty || 0,
+      presencePenalty: model.parameters?.presence_penalty || 0
+    }));
+  } catch (error) {
+    console.error('Error fetching local models:', error);
+    return [];
+  }
+};
 
-export class ModelService {
-    private static instance: ModelService;
-    private localModelsCache: Map<string, CustomModel[]> = new Map();
-    
-    static getInstance(): ModelService {
-      if (!ModelService.instance) {
-        ModelService.instance = new ModelService();
-      }
-      return ModelService.instance;
-    }
-  
-    async getAvailableModels(endpoint: string): Promise<CustomModel[]> {
-      const cachedModels = this.localModelsCache.get(endpoint);
-      if (cachedModels) {
-        return cachedModels;
-      }
-    
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-    
-        const response = await fetch(`${endpoint}/models`, {
-          signal: controller.signal,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-    
-        clearTimeout(timeoutId);
-    
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-    
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Response is not JSON');
-        }
-    
-        const data = await response.json();
-        
-        if (!data || (!'object' in data && !Array.isArray(data))) {
-          throw new Error('Invalid response structure');
-        }
-    
-        const modelIds = this.extractModelIds(data);
-        if (!modelIds.length) {
-          console.warn('No models found in response');
-          return [];
-        }
-    
-        const localModels = modelIds.map(id => ({
-          id: `${endpoint}-${id}`,
-          name: id,
-          provider: 'openai',
-          description: `${id} model running locally`,
-          endpoint: endpoint,
-          requiresAuth: false,
-          maxTokens: 8192,
-          thumbnailUrl: ollamaLogo
-        }));
-    
-        this.localModelsCache.set(endpoint, localModels);
-        return localModels;
-    
-      } catch (error) {
-        if (error instanceof TypeError && error.message === 'Load failed') {
-          console.warn('Connection failed to endpoint:', endpoint);
-        } else if (error instanceof SyntaxError) {
-          console.warn('Invalid JSON response from endpoint:', endpoint);
-        } else {
-          console.warn('Failed to fetch local models:', error);
-        }
-        return [];
-      }
-    }
-
-    clearCache(endpoint?: string) {
-      if (endpoint) {
-        this.localModelsCache.delete(endpoint);
-      } else {
-        this.localModelsCache.clear();
-      }
-    }
-  
-    private extractModelIds(data: any): string[] {
-      if ('object' in data && data.object === 'list') {
-        return data.data.map((model: any) => model.id);
-      }
-      
-      if (Array.isArray(data)) {
-        return data.map((model: any) => model.id);
-      }
-      
-      return [];
-    }
-}
-  
-export const modelService = ModelService.getInstance();
+export const isLocalModelAvailable = async (): Promise<boolean> => {
+  try {
+    const models = await getLocalModels();
+    return models.length > 0;
+  } catch (error) {
+    return false;
+  }
+};
