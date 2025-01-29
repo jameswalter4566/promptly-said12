@@ -1,9 +1,8 @@
-# Curiso.ai
+# Deep Fake AI
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/metaspartan/curiso/total) ![GitHub License](https://img.shields.io/github/license/metaspartan/curiso) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/metaspartan/curiso/build.yml) ![GitHub Tag](https://img.shields.io/github/v/tag/metaspartan/curiso)
 
-
-Curiso AI is an infinite canvas for your thoughts—a platform that seamlessly connects nodes and AI services to explore ideas in depth without repeating yourself. By guiding the direction of each conversation, Curiso.ai empowers advanced users to unlock richer, more accurate AI interactions. Created by Carsen Klock.
+Deep Fake AI is an infinite canvas for your thoughts—a platform that seamlessly connects nodes and AI services to explore ideas in depth without repeating yourself. By guiding the direction of each conversation, Deep Fake AI empowers advanced users to unlock richer, more accurate AI interactions.
 
 ## Features
 
@@ -135,3 +134,4 @@ Carsen Klock - [@metaspartan](https://github.com/metaspartan) [@carsenklock](htt
 - [Jan.ai](https://jan.ai/)
 - [LM Studio](https://lmstudio.ai/)
 - [Exo](https://github.com/exo-explore/exo)
+

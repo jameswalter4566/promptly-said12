@@ -23,13 +23,13 @@ import {
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-primary/30 rounded-full blur-md" />
                 <img 
                   src={logo} 
-                  alt="Curiso.ai" 
+                  alt="Deep Fake AI" 
                   className="relative w-20 h-20 animate-fade-in" 
                 />
               </div>
             </div>
             <DialogTitle className="text-center text-2xl font-bold mb-2">
-              Welcome to Curiso!
+              Welcome to Deep Fake AI!
             </DialogTitle>
             <p className="text-center text-muted-foreground text-sm">
               Your AI-powered canvas for infinite possibilities
