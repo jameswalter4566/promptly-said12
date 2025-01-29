@@ -54,7 +54,9 @@ const defaultSettings: GlobalSettings = {
     websites: [],
     supportedModels: [],
     embeddingModel: 'Xenova/bge-base-en-v1.5',
-    modelStatus: 'unloaded'
+    modelStatus: 'unloaded',
+    modelProgress: 0,
+    modelError: ''
   },
   primaryColor: themeColors[0].value,
   boards: [defaultBoard],
@@ -187,10 +189,8 @@ export const useStore = create<StoreState>()(
         // Clear embedding models from Browser Cache Storage
         const cacheKeys = await caches.keys();
         for (const key of cacheKeys) {
-          // if (key.includes('transformers')) {
-            await caches.delete(key);
-            console.log('Cleared cache:', key);
-          // }
+          await caches.delete(key);
+          console.log('Cleared cache:', key);
         }
 
         // Garbage collect

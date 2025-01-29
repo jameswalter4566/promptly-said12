@@ -41,6 +41,19 @@ export interface APIResponseMetrics {
   model?: string;
 }
 
+export interface RAGSettings {
+  enabled: boolean;
+  similarityThreshold: number;
+  chunkSize: number;
+  documents: any[];
+  websites: any[];
+  supportedModels: string[];
+  embeddingModel: string;
+  modelStatus: string;
+  modelProgress?: number;
+  modelError?: string;
+}
+
 export interface GlobalSettings {
   version: number;
   primaryColor: string;
@@ -69,23 +82,14 @@ export interface GlobalSettings {
   fitViewOnInit: boolean;
   lastSelectedModel: string;
   streaming: boolean;
-  rag?: {
-    enabled: boolean;
-    similarityThreshold: number;
-    chunkSize: number;
-    documents: any[];
-    websites: any[];
-    supportedModels: string[];
-    embeddingModel: string;
-    modelStatus: string;
-  };
+  rag: RAGSettings;
   hotkeys: {
     newNode: string;
     newBoard: string;
     deleteBoard: string;
     dNode: string;
   };
-  [key: string]: any; // Add index signature
+  [key: string]: any;
 }
 
 export interface StoreState {

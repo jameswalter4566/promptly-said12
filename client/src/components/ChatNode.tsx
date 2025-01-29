@@ -121,7 +121,8 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
   }, [getEdges, getNode, id]);
 
   const deleteNode = useCallback(() => {
-    const { selectedNodes } = useStore.getState();  // Get selectedNodes from store
+    const state = useStore.getState();
+    const selectedNodes = state.selectedNodes || [];
     
     setSettings({
       ...settings,
@@ -129,9 +130,9 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
         board.id === settings.currentBoardId
           ? {
               ...board,
-              nodes: board.nodes.filter(node => !selectedNodes?.some((selected: Node) => selected.id === node.id)),
+              nodes: board.nodes.filter(node => !selectedNodes.some(selected => selected.id === node.id)),
               edges: board.edges.filter(edge => 
-                !selectedNodes?.some((node: Node) => node.id === edge.source || node.id === edge.target)
+                !selectedNodes.some(node => node.id === edge.source || node.id === edge.target)
               )
             }
           : board
@@ -922,7 +923,7 @@ export function ChatNode({ id, data: initialData }: NodeProps) {
               td: ({ children }) => (
                 <td className="px-4 py-2 border-t">{children}</td>
               ),
-              math: ({ value }: { value: string }) => (
+              mpath: ({ value }: { value: string }) => (
                 <div className="katex-display">
                   <span dangerouslySetInnerHTML={{ __html: KaTeX.renderToString(value, { displayMode: true }) }} />
                 </div>
