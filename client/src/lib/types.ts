@@ -21,28 +21,28 @@ export interface GlobalSettings {
   };
   systemPrompt: string;
   lastSelectedModel: string;
-  openai: {
+  openai?: {
     apiKey: string;
   };
-  xai: {
+  xai?: {
     apiKey: string;
   };
-  perplexity: {
+  perplexity?: {
     apiKey: string;
   };
-  deepseek: {
+  deepseek?: {
     apiKey: string;
   };
-  groq: {
+  groq?: {
     apiKey: string;
   };
-  openrouter: {
+  openrouter?: {
     apiKey: string;
   };
-  anthropic: {
+  anthropic?: {
     apiKey: string;
   };
-  google: {
+  google?: {
     apiKey: string;
   };
   boards: Board[];
@@ -62,6 +62,7 @@ export interface GlobalSettings {
     deleteBoard: string;
     dNode: string;
   };
+  [key: string]: any; // Add index signature for dynamic access
 }
 
 export interface Board {
